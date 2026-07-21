@@ -1,0 +1,172 @@
+:root {
+    --cor-primaria: #FFC72C; /* Amarelo da logo */
+    --cor-secundaria: #000000; /* Preto */
+    --cor-fundo: #1a1a1a;
+    --cor-texto: #ffffff;
+}
+
+* {
+    box-sizing: border-box; /* Garante que bordas e paddings não quebrem o tamanho */
+}
+
+body {
+    margin: 0;
+    padding: 4vh 0; /* Dá um respiro no topo e na base da TV */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribui título, roleta e botão perfeitamente */
+    width: 100vw;
+    height: 100vh; /* Trava a altura exatamente no tamanho da TV */
+    overflow: hidden; /* Remove qualquer barra de rolagem */
+    background-color: var(--cor-fundo);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--cor-texto);
+
+    transition: opacity 0.5s ease-in;
+}
+
+body:not(.ready) {
+    opacity: 0;
+    pointer-events: none; /* Impede cliques enquanto invisível */
+}
+
+.header {
+    text-align: center;
+    flex: 0 1 auto; /* Evita que o cabeçalho seja esmagado */
+}
+
+.header h1 {
+    color: var(--cor-primaria);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    /* Usa clamp para a fonte crescer na TV 4K, mas sem exageros */
+    font-size: clamp(2.5rem, 5vh, 4.5rem); 
+    margin: 0 0 10px 0;
+}
+
+.header p {
+    font-size: clamp(1.2rem, 3vh, 2.5rem);
+    margin: 0;
+}
+
+.wheel-container {
+    position: relative;
+    /* Cravamos 55% da altura da tela para altura e largura, formando um quadrado perfeito */
+    height: 65vh; 
+    width: 65vh;  
+    
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255, 199, 44, 0.3);
+    border: 8px solid var(--cor-primaria);
+    background-color: var(--cor-secundaria);
+    
+    /* Impede que o Javascript ou a TV façam a roleta crescer além do limite */
+    flex-shrink: 0;
+    margin: 0 auto;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    border-radius: 50%;
+}
+
+.pointer {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 40px solid #ffffff;
+    z-index: 10;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+}
+
+button {
+    background-color: var(--cor-primaria);
+    color: var(--cor-secundaria);
+    border: none;
+    /* Tamanho e padding fluidos para a tela grande */
+    padding: clamp(15px, 2vh, 25px) clamp(40px, 5vw, 80px);
+    font-size: clamp(1.5rem, 3vh, 2.5rem);
+    font-weight: 900;
+    border-radius: 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(255, 199, 44, 0.4);
+    flex: 0 1 auto;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 199, 44, 0.7);
+}
+
+button:active {
+    transform: translateY(2px);
+}
+
+button:disabled {
+    background-color: #555;
+    color: #888;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+#result {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    opacity: 0; 
+    z-index: 100; 
+    font-size: clamp(2.5rem, 5vh, 4rem); 
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+    pointer-events: none; 
+    width: max-content;
+    max-width: 90vw; 
+}
+
+.resultado-animado {
+    animation: popUpCenter 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    background-color: var(--cor-secundaria);
+    padding: 30px 60px;
+    border-radius: 20px;
+    border: 5px solid var(--cor-primaria);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 50px rgba(255, 199, 44, 0.6);
+}
+
+@keyframes popUpCenter {
+    0% {
+        transform: translate(-50%, -40%) scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.wheel-center-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(120px, 20%, 260px);
+    height: clamp(120px, 20%, 260px);
+    border-radius: 50%;
+    z-index: 5; 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); 
+}
