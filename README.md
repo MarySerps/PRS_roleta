@@ -30,6 +30,3 @@ Para rodar este projeto na sua máquina e garantir que os efeitos sonoros funcio
 1. Clone este repositório:
    ```bash
    git clone [https://github.com/SEU-USUARIO/PRS_roleta-main.git](https://github.com/SEU-USUARIO/PRS_roleta-main.git)
-# 🎡 Roleta de Prêmios - PRS Reformas
-
-Uma aplicação web interativa de roleta da sorte desenvolvida para eventos e otimizada para exibição em telas gigantes (como TVs de 86"). Os participantes giram a roleta para concorrer a brindes e mimos exclusivos da PRS Reformas em uma experiência gamificada.
