@@ -21,18 +21,26 @@ somGiro.loop = true;
 
 // === CONFIGURAÇÃO DOS PRÊMIOS E PORCENTAGENS ===
 const configuracaoPremios = [
-    { texto: "Agenda", chance: 8 },
-    { texto: "Tente Novamente", chance: 15 },
-    { texto: "Kit de Chaves", chance: 5 }, 
-    { texto: "Que pena! Não foi dessa vez!", chance: 15 },
-    { texto: "Cuia de Chimarrão", chance: 2 }, // Item raro
-    { texto: "Tente Novamente", chance: 15 },
-    { texto: "Trena", chance: 5 },
-    { texto: "Que pena! Não foi dessa vez!", chance: 15 },
-    { texto: "Caneta", chance: 8 },
-    { texto: "Tente Novamente", chance: 10 },
-    { texto: "Luva", chance: 1.5 },
-    { texto: "Chave Teste", chance: 0.5 } // Item super raro
+    { texto: "Agenda", chance: 5 }, 
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 },
+    { texto: "Kit de Chaves", chance: 6 }, 
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5},
+    { texto: "Cuia de Chimarrão", chance: 4 }, 
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 },
+    { texto: "Trena", chance: 4 }, 
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 }, 
+    { texto: "Lanterna", chance: 1 },
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 }, 
+    { texto: "Odarizador de Ambiente", chance: 4 }, 
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 }, 
+    { texto: "Kit Multiuso", chance: 1 },
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 }, 
+    { texto: "Lanterna", chance: 1 }, 
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 }, 
+    { texto: "Chave Teste", chance: 1.5 },
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 },
+    { texto: "Luva", chance: 0.5 },
+    { texto: "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!", chance: 5 }
 ];
 
 // Extrai apenas os nomes para desenhar a roleta
@@ -200,16 +208,23 @@ function finishSpin() {
     const winningIndex = Math.floor(winningAngle / sliceAngle);
     const premioGanhador = premios[winningIndex];
 
-    if (premioGanhador === "Tente Novamente" || premioGanhador === "Que pena! Não foi dessa vez!") {      
+    // Define o visual (e o som) se a pessoa não ganhou brinde físico
+    // Define o visual se a pessoa cair na opção do Instagram
+    if (premioGanhador === "Siga a PRS Reformas no Instagram e Ganhe uma Caneta!") {      
         somPerdeu.currentTime = 0;
         somPerdeu.play();   
         
-        // Emojis de derrota amigáveis adicionados!
-        resultDiv.innerText = `😅 ${premioGanhador} 🍀`; 
+        // Atualizado com o nome exato do arquivo que você salvou!
+        resultDiv.innerHTML = `
+            📲 ${premioGanhador} ✨<br>
+            <img src="PNG/prs_reformas_qr.png" style="width: 200px; margin-top: 20px; border-radius: 15px; box-shadow: 0 0 15px rgba(255,255,255,0.3);">
+        `; 
+        
         resultDiv.style.color = "#ffffff";
         resultDiv.style.borderColor = "#555555";
         resultDiv.style.boxShadow = "0 0 20px rgba(255, 255, 255, 0.2)";
     } 
+    // Define o visual se a pessoa ganhou o brinde físico
     else {
         somGanhou.currentTime = 0;
         somGanhou.play();
@@ -224,7 +239,7 @@ function finishSpin() {
 
     setTimeout(() => {
         window.location.reload(); 
-    }, 7000); 
+    }, 15000); 
 }
 
 setTimeout(resizeCanvas, 150);
